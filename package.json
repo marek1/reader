@@ -1,0 +1,17 @@
+{
+  "name": "reader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cheerio": "^0.20.0",
+    "encoding": "^0.1.12",
+    "iconv-lite": "^0.4.13",
+    "request": "^2.69.0"
+  }
+}
