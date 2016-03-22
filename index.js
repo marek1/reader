@@ -6,7 +6,6 @@ var noOfTitles = 5;
 var finalText = '';
 //DI
 var http = require('http');
-var request = require('request');
 var cheerio = require('cheerio');
 var fs = require('fs');
 var iconv  = require('iconv-lite');
@@ -144,26 +143,11 @@ var getUrl = function(_url, callback) {
     /**
      * request url
      */
-    // var requestOptions  = { method: "GET", uri: _url};
-	//
-    // request.get(requestOptions, function (error, response, body) {
-    //     if (!error && response.statusCode == 200) {
-    //         // replace umlaute
-		// 	console.log(' ... body : ', body); //encoding.convert(body, "utf8"));
-		// 	//callback(replaceUmlaute(body));
-    //         // callback(encoding.convert(body, "utf8"));
-    //     }
-    // });
-	// Set the headers
-	// var headers = {
-	// 	'Content-Type':     'text/html; charset=iso-8859-1'
-	// }
-	//
-	// Configure the request
+    // Configure the request
 	var options = {
 		url: _url,
 		method: 'GET'
-	}
+	};
 	http.get(_url, function(res){
 		console.log('request');
 		var finalStr='';
@@ -187,7 +171,3 @@ var getUrl = function(_url, callback) {
 //init
 clearFile();
 getUrl(url, getTitles);
-// var result = encoding.convert("ÄÜP", "utf8");
-// console.log(result); //<Buffer d5 c4 d6 dc>
-// var str = iconv.decode(result, 'utf8');
-// console.log('str ',str);
