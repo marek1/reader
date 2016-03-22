@@ -1,3 +1,4 @@
+var prodFolder = '/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/';
 var url = 'http://www.manager-magazin.de/';
 var writeFile = 'index.html';
 var filesWritten = 0;
@@ -37,7 +38,7 @@ var filterHtml = function(_rawHtml){
 
     //console.log('pageContent : ',pageContent);
     writeToFile(pageContent);
-
+    
 
 
 };
@@ -55,7 +56,7 @@ var writeToFile = function(_content){
      * write to file
      */
     console.log('_content : ',_content);
-    fs.appendFile(writeFile, _content, function(err) {
+    fs.appendFile(prodFolder + writeFile, _content, function(err) {
         if(err) {
             return console.log(err);
         }
@@ -69,7 +70,7 @@ var writeToFile = function(_content){
 };
 
 var closeFile = function() {
-    fs.appendFile(writeFile, '</body>', function(err) {
+    fs.appendFile(prodFolder + writeFile, '</body>', function(err) {
         if(err) {
             return console.log(err);
         }
