@@ -5,6 +5,7 @@ var noOfTitles = 2;
 
 var finalText = '';
 //DI
+var http = require('http');
 var request = require('request');
 var cheerio = require('cheerio');
 var fs = require('fs');
@@ -13,9 +14,12 @@ var encoding = require("encoding");
 
 var filterHtml = function(_rawHtml){
 
-    //console.log('_rawHtml : ',_rawHtml);
+    console.log('_rawHtml : ',_rawHtml);
 
+	// var filteredHtml = iconv.decode(_rawHtml, 'utf8');
     var $ = cheerio.load(_rawHtml);
+
+
 
     var pageContent = $('.article-section');
 
@@ -51,15 +55,15 @@ var writeToFile = function(_content){
     /**
      * write to file
      */
-    //console.log('_content : ',_content);
+    console.log('_content : ',_content);
     fs.appendFile(writeFile, _content, function(err) {
         if(err) {
             return console.log(err);
         }
-        filesWritten++;
-        if (filesWritten === noOfTitles){
-            closeFile();
-        }
+        // filesWritten++;
+        // if (filesWritten === noOfTitles){
+        //     closeFile();
+        // }
         console.log("The file was saved!");
     });
 
@@ -95,15 +99,20 @@ var getTitles = function(_html) {
      * get titles from index
      */
 
+	// console.log('_html : ',_html);
+
     var $ = cheerio.load(_html);
 
-    var hrefArray = $('.article-title a');
+    var hrefArray = $('.more-articles');
 
-    //console.log('....',hrefArray.length);
+    // console.log('....',hrefArray);
 
+	if (hrefArray.length<1){
+		return false;
+	}
     for (var i = 0; i < noOfTitles; i++) {
 
-        //console.log('... ', hrefArray[i].attribs.href);
+        console.log('... ', hrefArray[i].attribs.href);
 
         var a = hrefArray[i].attribs.href;
 
@@ -115,17 +124,16 @@ var getTitles = function(_html) {
 
 };
 
-var replaceUmlate = function(_text) {
+var replaceUmlaute = function(_text) {
 
     var text = _text.toString();
-    console.log('_text : ',_text.indexOf('ü'));
-    text = text.replace(/ö/g,'oe');
-    text = text.replace(/Ö/g,'Oe');
-    text = text.replace(/ü/g,'ue');
-    text = text.replace(/Ü/g,'ue');
-    text = text.replace(/ä/g,'ae');
-    text = text.replace(/Ä/g,'Ae');
-    text = text.replace(/ß/g,'ss');
+    text = text.replace(/Ã¶/g,'oe');
+    text = text.replace(/Ã–/g,'Oe');
+    text = text.replace(/Ãœ/g,'ue');
+    text = text.replace(/Ã¼/g,'ue');
+    text = text.replace(/Ã¤/g,'ae');
+    text = text.replace(/Ã„/g,'Ae');
+    text = text.replace(/ÃŸ/g,'ss');
 
     return text;
 };
@@ -136,22 +144,50 @@ var getUrl = function(_url, callback) {
     /**
      * request url
      */
-    var requestOptions  = { encoding: 'utf8', method: "GET", uri: _url};
+    // var requestOptions  = { method: "GET", uri: _url};
+	//
+    // request.get(requestOptions, function (error, response, body) {
+    //     if (!error && response.statusCode == 200) {
+    //         // replace umlaute
+		// 	console.log(' ... body : ', body); //encoding.convert(body, "utf8"));
+		// 	//callback(replaceUmlaute(body));
+    //         // callback(encoding.convert(body, "utf8"));
+    //     }
+    // });
+	// Set the headers
+	// var headers = {
+	// 	'Content-Type':     'text/html; charset=iso-8859-1'
+	// }
+	//
+	// Configure the request
+	var options = {
+		url: _url,
+		method: 'GET'
+	}
+	http.get(_url, function(res){
+		console.log('request');
+		var finalStr='';
+		res.on('data', function(chunk){
+			// console.log('chunk!');
+			finalStr += chunk;
+			// callback(_body);
+			// writeToFile(iconv.decode(chunk, 'iso-8859-1'));
+		});
+		res.on('end', function(){
+			console.log('loaded!');
 
-    request.get(requestOptions, function (error, response, body) {
-        //console.log('body ; ',body);
-        if (!error && response.statusCode == 200) {
-            // replace umlaute
-            callback(body);
-        }
-    });
+			var _body = replaceUmlaute(iconv.decode(finalStr, 'iso-8859-1'));
 
+			callback(_body);
+		});
+
+	});
 };
 
 //init
-//clearFile();
-//getUrl(url, getTitles);
-var result = encoding.convert("ÕÄÖÜ", "utf8");
-console.log(result); //<Buffer d5 c4 d6 dc>
-var str = iconv.decode(result, 'utf8');
-console.log('str ',str);
+clearFile();
+getUrl(url, getTitles);
+// var result = encoding.convert("Ã„ÃœP", "utf8");
+// console.log(result); //<Buffer d5 c4 d6 dc>
+// var str = iconv.decode(result, 'utf8');
+// console.log('str ',str);
