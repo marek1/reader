@@ -1,7 +1,7 @@
 var url = 'http://www.manager-magazin.de/';
 var writeFile = 'index.html';
 var filesWritten = 0;
-var noOfTitles = 5;
+var noOfTitles = 20;
 
 var finalText = '';
 //DI
