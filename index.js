@@ -1,7 +1,7 @@
 var url = 'http://www.manager-magazin.de/';
 var writeFile = 'index.html';
 var filesWritten = 0;
-var noOfTitles = 2;
+var noOfTitles = 5;
 
 var finalText = '';
 //DI
@@ -103,7 +103,7 @@ var getTitles = function(_html) {
 
     var $ = cheerio.load(_html);
 
-    var hrefArray = $('.more-articles');
+    var hrefArray = $('.article-title a');
 
     // console.log('....',hrefArray);
 
@@ -169,7 +169,7 @@ var getUrl = function(_url, callback) {
 		var finalStr='';
 		res.on('data', function(chunk){
 			// console.log('chunk!');
-			finalStr += chunk;
+			finalStr += replaceUmlaute(iconv.decode(chunk, 'iso-8859-1'));
 			// callback(_body);
 			// writeToFile(iconv.decode(chunk, 'iso-8859-1'));
 		});
