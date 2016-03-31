@@ -52,7 +52,7 @@ var clearFile = function(){
   		if(exists) {
 			fs.unlink(writeFile);
 		}
-	}
+	});
 
 };
 
