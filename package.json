@@ -8,9 +8,10 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "cheerio": "^0.20.0",
     "encoding": "^0.1.12",
-    "iconv-lite": "^0.4.13"
+    "iconv-lite": "^0.4.13",
+    "html-pdf": "^2.0.1"
   }
 }
