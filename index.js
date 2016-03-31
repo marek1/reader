@@ -1,4 +1,4 @@
-var prodFolder = 'var/www/vhosts/marek-sonnabend.de/httpdocs/reader/';
+var prodFolder = '/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/';
 var url = 'http://www.manager-magazin.de/';
 var writeFile = 'index.html';
 var filesWritten = 0;
