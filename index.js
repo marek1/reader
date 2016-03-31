@@ -45,7 +45,7 @@ var clearFile = function(){
 
 	var _scaffold = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Reader</title></head><body>';
 
-    var _googleDrive = '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-savetodrive" data-src="//index.pdf" data-filename="MM.pdf" data-sitename="MMReader"></div>';
+    var _googleDrive = '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-savetodrive" data-src="reader.pdf" data-filename="reader.pdf" data-sitename="MMReader"></div>';
 
     fs.writeFile(writeFile, _scaffold + _googleDrive, function(){console.log('done')});
 	// fs.exists(writeFile, function(exists) {
