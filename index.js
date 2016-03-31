@@ -45,11 +45,15 @@ var filterHtml = function(_rawHtml){
 
 var clearFile = function(){
 
-    var _scaffold = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Reader</title></head><body>';
+	var _scaffold = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Reader</title></head><body>';
 
-    //fs.writeFile(writeFile, _scaffold, function(){console.log('done')})
+	//fs.writeFile(writeFile, _scaffold, function(){console.log('done')})
+	fs.exists(writeFile, function(exists) {
+  		if(exists) {
+			fs.unlink(writeFile);
+		}
+	}
 
-	fs.unlink(writeFile);
 };
 
 var writeToFile = function(_content){
