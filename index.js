@@ -1,4 +1,4 @@
-var prodFolder = '/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/';
+var prodFolder = ''; //'/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/';
 var url = 'http://www.manager-magazin.de/';
 var writeFile = 'index.html';
 var filesWritten = 0;
@@ -41,18 +41,23 @@ var filterHtml = function(_rawHtml){
 
 };
 
-var clearFile = function(){
-
-	var _scaffold = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Reader</title></head><body>';
+var writeFirstLines = function(){
+    var _scaffold = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Reader</title></head><body>';
 
     var _googleDrive = '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-savetodrive" data-src="reader.pdf" data-filename="reader.pdf" data-sitename="MMReader"></div>';
 
-    fs.writeFile(writeFile, _scaffold + _googleDrive, function(){console.log('done')});
-	// fs.exists(writeFile, function(exists) {
-  	// 	if(exists) {
-	// 		fs.unlink(writeFile);
-	// 	}
-	// });
+        fs.writeFile(prodFolder + writeFile, _scaffold + _googleDrive, function(){console.log('done')});
+
+};
+
+var clearFile = function(){
+        fs.exists(prodFolder + writeFile, function(exists) {
+              if(exists) {
+                        fs.unlink(prodFolder + writeFile, function(){
+                                writeFirstLines();
+                        });
+              }
+        });
 
 };
 
