@@ -40,19 +40,23 @@ var filterHtml = function(_rawHtml){
 
 
 };
-
-var clearFile = function(){
-
-	var _scaffold = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Reader</title></head><body>';
+var writeFirstLines = function(){
+    var _scaffold = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Reader</title></head><body>';
 
     var _googleDrive = '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-savetodrive" data-src="reader.pdf" data-filename="reader.pdf" data-sitename="MMReader"></div>';
 
-    fs.writeFile(writeFile, _scaffold + _googleDrive, function(){console.log('done')});
-	// fs.exists(writeFile, function(exists) {
-  	// 	if(exists) {
-	// 		fs.unlink(writeFile);
-	// 	}
-	// });
+        fs.writeFile(prodFolder + writeFile, _scaffold + _googleDrive, function(){console.log('done')});
+
+};
+
+var clearFile = function(){
+	fs.exists(prodFolder + writeFile, function(exists) {
+              if(exists) {
+                      	fs.unlink(prodFolder + writeFile, function(){
+				writeFirstLines();
+			});
+              }
+        });
 
 };
 
@@ -159,14 +163,14 @@ var getUrl = function(_url, callback) {
 		var finalStr='';
 		res.on('data', function(chunk){
 			// console.log('chunk!');
-			finalStr += replaceUmlaute(iconv.decode(chunk, 'iso-8859-1'));
+			finalStr += replaceUmlaute(iconv.decode(chunk, 'utf-8'));// 'iso-8859-1'));
 			// callback(_body);
 			// writeToFile(iconv.decode(chunk, 'iso-8859-1'));
 		});
 		res.on('end', function(){
 			console.log('loaded!');
 
-			var _body = replaceUmlaute(iconv.decode(finalStr, 'iso-8859-1'));
+			var _body = replaceUmlaute(iconv.decode(finalStr, 'utf-8')); //'iso-8859-1'));
 
 			callback(_body);
 		});
