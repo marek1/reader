@@ -1,4 +1,4 @@
-var prodFolder = '/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/';
+var prodFolder = ''; //'/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/';
 var url = 'http://www.manager-magazin.de/';
 var writeFile = 'index.html';
 var filesWritten = 0;
@@ -46,7 +46,6 @@ var writeFirstLines = function(){
     var _googleDrive = '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-savetodrive" data-src="reader.pdf" data-filename="reader.pdf" data-sitename="MMReader"></div>';
 
         fs.writeFile(prodFolder + writeFile, _scaffold + _googleDrive, function(){console.log('done')});
-
 };
 
 var clearFile = function(){
