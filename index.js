@@ -1,8 +1,8 @@
-var prodFolder = '/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/';
+var prodFolder = '';
 var url = 'http://www.manager-magazin.de/';
 var writeFile = 'reader.html';
 var filesWritten = 0;
-var noOfTitles = 30;
+var noOfTitles = 10;
 
 var finalText = '';
 //DI
@@ -182,8 +182,11 @@ clearFile();
 // print process.argv
 process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
-    if (index===2 && val === 'dev') {
-        prodFolder = '';
+    if (index===2 && val) {
+        prodFolder = val; //i.e. /var/www/vhosts/marek-sonnabend.de/httpdocs/reader/
+    }
+    if (index===3 && val) {
+        noOfTitles = val; //i.e. 15
     }
 });
 getUrl(url, getTitles);
