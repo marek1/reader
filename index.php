@@ -23,8 +23,8 @@ if ($_GET['small']) {
 ?>
 <p>Go to <a href="reader.html">Webpage</a> | <a href="reader.pdf">PDF</a></p>
 <hr>
-<p>Create <a href="index.php?run=small">Create small issue (10 titles)</a></p> |
-<p>Create <a href="index.php?run=medium">Create medium issue (20 titles)</a></p> |
+<p>Create <a href="index.php?run=small">Create small issue (10 titles)</a></p>
+<p>Create <a href="index.php?run=medium">Create medium issue (20 titles)</a></p>
 <p>Create <a href="index.php?run=big">Create BIG issue (30 titles)</a></p>
 <hr>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
