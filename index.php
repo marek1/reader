@@ -12,12 +12,12 @@
 </head>
 <body>
 <?php
-if ($_GET['small']) {
+if ($_GET['run']=='small') {
   # This code will run if ?run=true is set.
   exec("/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/build.sh");
-} else if ($_GET['medium']) {
+} else if ($_GET['run']=='medium') {
   exec("/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/build_medium.sh");
-} else if ($_GET['big']) {
+} else if ($_GET['run']=='big') {
   exec("/var/www/vhosts/marek-sonnabend.de/httpdocs/reader/build_big.sh");
 }
 ?>
